@@ -9,7 +9,7 @@
 #define LED_PIN 48
 #define BUTTON_PIN 0
 
-static const char *TAG = "Blink de 0";
+static const char *TAG = "Blink";
 
 static uint8_t s_led_state = 0;
 
@@ -17,7 +17,7 @@ static led_strip_handle_t led_strip;
 
 static void blink_led(void)
 {    if (s_led_state) {
-        led_strip_set_pixel(led_strip, 0, 16, 16, 16);
+        led_strip_set_pixel(led_strip, 0, 16, 8, 0);
         led_strip_refresh(led_strip);
     } else {
         led_strip_clear(led_strip);
@@ -63,9 +63,11 @@ void app_main(void)
 
         if(button_state){
             vTaskDelay(1000 / portTICK_PERIOD_MS);
+            ESP_LOGI(TAG, "Blinking slow at 1000ms");
         }
         else{
             vTaskDelay(200 / portTICK_PERIOD_MS);
+            ESP_LOGI(TAG, "Blinking fast at 200ms");
         }
         
     }
